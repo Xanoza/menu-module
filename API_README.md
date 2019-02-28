@@ -14,8 +14,11 @@
 
 ## Parameters:
 
-- URL: '/api/:id'
+- URL: `'/api/:id'`
+
   id=[integer]
+
+  ```
   Data: [
     {
       id: INT,
@@ -29,8 +32,11 @@
       ...
     }
   ]
+  ```
 
-- URL: '/api/menu/new/menu'
+- URL: `'/api/menu/new/menu'`
+
+```
   Data: {
     id: INT,
     restaurant: STRING,
@@ -39,15 +45,21 @@
     description: STRING,
     price: STRING
   }
+  ```
 
-- URL: '/api/menu/delete/menu'
+- URL: `'/api/menu/delete/menu'`
+
+```
   Data: {
     id: INT,
     restaurant: STRING,
     name: STRING
   }
+  ```
 
-- URL: '/api/menu/update/menu'
+- URL: `'/api/menu/update/menu'`
+
+```
   Data: {
     id: INT,
     restaurant: STRING,
@@ -56,10 +68,14 @@
     description: STRING,
     price: STRING
   }
+  ```
 
-- URL: '/api/menu/restaurant/:id/:type'
+- URL: `'/api/menu/restaurant/:id/:type'`
+
     id=[integer]
     type=[string]
+
+    ```
     Data: [
     {
       id: INT,
@@ -73,3 +89,4 @@
       ...
     }
   ]
+  ```
