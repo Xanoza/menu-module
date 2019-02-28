@@ -1,14 +1,11 @@
-const connection = require("./db");
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
-const compression = require('compression');
+const db = require("./sdc-db");
 const server = express();
 server.use(cors());
-server.use(compression());
 
 server.use(express.static(path.join(__dirname, '../client/dist')));
-// express.static(path.join(__dirname, '../client/dist'));
 
 // server.get('/', function(req, res) {
 
