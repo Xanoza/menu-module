@@ -1,0 +1,20 @@
+DROP DATABASE IF EXISTS restaurants;
+
+CREATE DATABASE restaurants;
+
+\c restaurants;
+
+-- DROP TABLE IF EXISTS menus;
+
+CREATE TABLE menus (
+ID SERIAL PRIMARY KEY,
+RES_ID INT NOT NULL,
+TYPE CHAR (10) NOT NULL,
+CATEGORY CHAR (12) NOT NULL,
+NAME TEXT NOT NULL,
+DESCRIPTION TEXT NOT NULL,
+-- DESCRIPTION CHAR (100) NOT NULL,
+PRICE CHAR(6)
+);
+
+\COPY menus (res_id, type, category, name, description, price)FROM 'server/sdc-db/test-data.csv' DELIMITER ',' CSV HEADER;
