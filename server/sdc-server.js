@@ -1,29 +1,34 @@
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
-const db = require("./sdc-db");
+const dbMongo = require("./sdc-db/db-mongo.js");
+const dbPostgres = require("./sdc-db/db-postgres.js");
+
 const server = express();
 server.use(cors());
-
 server.use(express.static(path.join(__dirname, '../client/dist')));
 
-// server.get('/', function(req, res) {
-
-//     res.send('ok');
-// })
-
-server.get("/menu", function (req, res) {
-  let meal = req.query.q === undefined ? 'lunch' : req.query.q;
-  let queryStr = "select * from " + meal;
-  connection.connection.query(queryStr, function (err, result) {
+server.get("/mongo/:id", function (req, res) {
+  const id = parseInt(req.params.id);
+  dbMongo.findAllMenusForId(id, function (err, data) {
     if (err) {
       console.log("error message: ", err);
       return;
     }
-    res.send(result);
+    res.send(data);
   });
 });
 
-server.use("/:id", express.static(path.join(__dirname, '../client/dist')));
+server.get("/pg/:id", function (req, res) {
+  const id = parseInt(req.params.id);
+  dbPostgres.findAllMenusForId(id, function (err, data) {
+    if (err) {
+      console.log("error message: ", err);
+      return;
+    }
+    res.send(data);
+  });
+});
+
 module.exports = server;
 

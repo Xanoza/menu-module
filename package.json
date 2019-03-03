@@ -12,11 +12,12 @@
   },
   "scripts": {
     "serialize": "node server/sdc-db/generateCSV.js",
-    "create-db": "psql -U leha < server/sdc-db/sdc-schema.sql",
+    "pg-create-db": "psql -U leha < server/sdc-db/sdc-schema.sql",
+    "mongo-create-db": "node server/sdc-db/generate-mongo.js",
     "build": "webpack -p",
     "watch": "webpack --watch",
     "test": "jest",
-    "start": "node server/index.js",
+    "start": "node server/sdc-index.js",
     "seed": "node server/db/seed.js"
   },
   "dependencies": {
