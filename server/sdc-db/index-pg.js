@@ -1,8 +1,6 @@
 const { Client } = require('pg');
 const config = require('./config.js');
-// const client = new Client(config);
 
-// client.connect();
 console.log(config)
 
 const client = new Client(config)
@@ -17,16 +15,5 @@ const getAll = async () => {
 };
 
 getAll();
-
-
-
-// client.query('SELECT * FROM test', async(err, res) => {
-//   if (err) {
-//     console.log('PRINTING ERROR', err);
-//     return;
-//   }
-//   console.log(err, res)
-//   client.end()
-// });
 
 module.exports = { getAll };
