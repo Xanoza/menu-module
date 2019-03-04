@@ -11,6 +11,7 @@
     "verbose": true
   },
   "scripts": {
+    "art": "artillery run artillery-test/artillery-test1.yml",
     "serialize": "node server/sdc-db/generateCSV.js",
     "pg-create-db": "psql -U leha < server/sdc-db/sdc-schema.sql",
     "mongo-create-db": "node server/sdc-db/generate-mongo.js",
