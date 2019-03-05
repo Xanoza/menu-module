@@ -1,26 +1,37 @@
-const {Client} = require('pg');
-// const config = require('./config.js');
 const dbName = 'restaurants';
 const tbName = 'menus';
 
-const findAllMenusForId = async (id, callback) => {
-  const client = new Client({
+const {Pool} = require('pg');
+const pool = new Pool({
     user: 'postgres',
     host: 'localhost',
     database: dbName,
     password: 'password',
-    port: 5432
+    port: 5432,
+    max: 50,
+    min: 5
   });
-  client.connect()
-    .then(() => console.log('Connected to Postgres'))
-    .catch(err => {
-      console.error('MY connection error', err.stack);
-      return console.log(err);
+
+pool.on('error', (err, client) => {
+  console.error('Unexpected error on idle client', err);
+  process.exit(-1);
+});
+
+
+const findAllMenusForId = (id, callback) => {
+  pool.connect()
+    .then(client => {
+      return client.query(`SELECT res_id, type, category, description, price FROM ${tbName} WHERE res_id=${id}`)
+        .then(res => {
+          client.release();
+          callback(null, res.rows);
+        })
+        .catch(e => {
+          client.release()
+          console.log(err.stack);
+          callback(e);
+        });
     });
-  const res = await client.query(`SELECT res_id, type, category, description, price FROM ${tbName} WHERE res_id=${id}`)
-    .catch(err => console.log('----------', err));
-  client.end();
-  callback(null, res.rows);
 };
 
 module.exports = {

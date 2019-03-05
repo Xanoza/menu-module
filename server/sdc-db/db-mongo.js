@@ -2,24 +2,20 @@ const MongoClient = require('mongodb').MongoClient;
 const url = 'mongodb://localhost:27017';
 const dbName = 'restaurants';
 const tbName = 'menus';
+var db;
+
+MongoClient.connect(url, {useNewUrlParser: true, poolSize: 50}, async function(err, database) {
+  if(err) throw err;
+  db = await database.db(dbName).collection(tbName);
+});
 
 const findAllMenusForId = function(id, callback) {
-  MongoClient.connect(url, {useNewUrlParser: true}, function(err, client) {
+  db.find({res_id: id}).toArray(function(err, data) {
     if (err) {
       console.log(err);
-      callback(err);
       return;
     }
-    console.log('Connected to Mongo');
-    const db = client.db(dbName).collection(tbName);
-    db.find({res_id: id}).toArray(function(err, data) {
-      if (err) {
-        console.log(err);
-        return;
-      }
-      callback(null, formatData(data));
-      client.close();
-    });
+    callback(null, formatData(data));
   });
 };
 
