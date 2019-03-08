@@ -8,6 +8,12 @@ server.use(cors());
 server.use(compression());
 
 server.use(express.static(path.join(__dirname, '../client/dist')));
+// express.static(path.join(__dirname, '../client/dist'));
+
+// server.get('/', function(req, res) {
+
+//     res.send('ok');
+// })
 
 server.get("/menu", function (req, res) {
   let meal = req.query.q === undefined ? 'lunch' : req.query.q;

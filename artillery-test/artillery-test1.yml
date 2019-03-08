@@ -1,0 +1,26 @@
+config:
+  target: 'http://localhost:3000'
+  phases:
+    - duration: 60
+      arrivalRate: 650
+      name: 'warmup'
+    # - duration: 30
+    #   arrivalRate: 300
+    #   rampTo: 900
+    #   name: 'breakdown'
+  payload:
+    path: "ids.csv"
+    fields:
+      - "res_id"
+    order: random
+    skipHeader: true
+  ensure:
+    p95: 10
+    p99: 20
+    maxErrorRate: 1
+scenarios:
+  - name: "postgress test"
+    flow:
+      - get:
+          url: "/pg/{{res_id}}"
+      # - think: 1
